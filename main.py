@@ -1,11 +1,6 @@
 # 檔案：main.py
-
-from config import OPENAI_API_KEY
-from openai import OpenAI
 from message_db import init_message, add_message, get_messages
-
-client = OpenAI(api_key=OPENAI_API_KEY)
-
+from lib import client
 init_message("你是一位專門講關於貓的笑話大師，回答問題時請一律使用**台灣繁體中文**")
 
 try:

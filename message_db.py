@@ -1,5 +1,3 @@
-# 檔案：message_db.py
-
 from tinydb import TinyDB
 from datetime import datetime
 from time import time
