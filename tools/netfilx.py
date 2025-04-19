@@ -20,7 +20,25 @@ netflixToolsConfig = [
                 "required": ["drama"],
             },
         },
-    }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "get_pdf",
+            "description": "取得使用者需求的pdf資訓",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "pdf": {
+                        "type": "string",
+                        "description": "pdf資訊",
+                    }
+                },
+                "additionalProperties": False,
+                "required": ["pdf"],
+            },
+        },
+    },
 ]
 
 def get_netflix(drama: str) -> Union[List[Dict[str, Any]], str]:
@@ -95,5 +113,70 @@ def search_netflix_content(query: str) -> Dict[str, Any]:
     return {
         "success": True,
         "message": f"找到 {len(results)} 筆與 '{query}' 相關的影集資訊",
+        "data": results
+    }
+
+
+def get_pdf(pdf: str) -> Union[List[Dict[str, Any]], str]:
+    """
+    Search for pdf content based on user query.
+    
+    Args:
+        drama: Search query for pdf content
+        
+    Returns:
+        List of formatted pdf content information or error message
+    """
+    try:
+        # Initialize vector database
+        vector_db = QdrantDB(collection_name="pythonbook")
+        
+        # Search for content matching the query
+        search_results = vector_db.search(query=pdf)
+        
+        # Check if we got any results
+        if not search_results:
+            return f"❌ 找不到與 '{pdf}' 相關的資訊"
+        
+        # Format the results
+        formatted_results = []
+        for item in search_results:
+            formatted_item = {
+                "page": item.get("page", "未知頁面"),
+                "text": item.get("text", "未知描述"),
+            }
+            
+            formatted_results.append(formatted_item)
+        
+        return formatted_results
+        
+    except Exception as e:
+        return f"❌ 搜尋pdf資訊時發生錯誤: {str(e)}"
+
+
+# # Example usage
+def search_pdf_content(query: str) -> Dict[str, Any]:
+    """
+    Search for pdf content and format the response for API return.
+    
+    Args:
+        query: User's search query
+        
+    Returns:
+        Formatted API response
+    """
+    results = get_pdf(query)
+    
+    if isinstance(results, str) and results.startswith("❌"):
+        # Error occurred
+        return {
+            "success": False,
+            "message": results,
+            "data": None
+        }
+    
+    return {
+        "success": True,
+        "message": f"找到 {len(results)} 筆與 '{query}' 相關的pdf資訊",
         "data": results
     }

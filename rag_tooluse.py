@@ -1,12 +1,12 @@
 from lib import client,init_message, add_message, get_messages
-from tools import netflixToolsConfig,get_netflix,search_netflix_content
+from tools import netflixToolsConfig,get_netflix,search_netflix_content,get_pdf,search_pdf_content
 import json
 from utils.spinner import spinner
 
 init_message("你是一位聰明的助理，回答問題的時候請一律使用**台灣繁體中文**")
-add_message("幫我找有關台灣的影集")  # 為求方便，先固定問題
+add_message("幫我找有關台灣的影集並告訴我 pdf 的 keypoint")  # 為求方便，先固定問題
 
-AVAILABLE_TOOLS = {"get_netflix": get_netflix,"search_netflix_content":search_netflix_content}
+AVAILABLE_TOOLS = {"get_netflix": get_netflix,"search_netflix_content":search_netflix_content,"get_pdf":get_pdf,"search_pdf_content":search_pdf_content}
 
 
 spinner.start()
@@ -40,7 +40,7 @@ if tool_calls:
 
         result = fn(**args)
         add_message(result, tool_call_id=tool_call.id)
-    spinner.succeed("取得影集資料")
+    spinner.succeed("取得資料")
 
     # 準備把結果交給 LLM 組織答案
     spinner.start()
