@@ -1,6 +1,4 @@
-# 檔案：main.py
-from message_db import init_message, add_message, get_messages
-from lib import client
+from lib import client,init_message, add_message, get_messages
 init_message("你是一位專門講關於貓的笑話大師，回答問題時請一律使用**台灣繁體中文**")
 
 try:
