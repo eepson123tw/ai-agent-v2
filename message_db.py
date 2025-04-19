@@ -5,10 +5,18 @@ from datetime import datetime
 from time import time
 from pathlib import Path
 
+
+# 建立歷史記錄目錄
 HISTORY_DIR = Path("history")
 HISTORY_DIR.mkdir(parents=True, exist_ok=True)
 
-db = TinyDB(HISTORY_DIR / f"message-{int(time())}.json")
+# 使用直接設定參數的方式初始化 TinyDB
+db = TinyDB(
+    HISTORY_DIR / f"message-{int(time())}.json",
+    encoding='utf-8',
+    ensure_ascii=False,  # 確保中文不會被轉為 Unicode 跳脫序列
+    indent=4  # 讓 JSON 檔案更易讀
+)
 
 
 def init_message(content=None):
