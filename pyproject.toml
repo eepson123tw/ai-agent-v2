@@ -1,0 +1,15 @@
+[project]
+name = "ai-agent-v2"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "openai>=1.75.0",
+    "tinydb>=4.8.2",
+]
+
+[dependency-groups]
+dev = [
+    "python-dotenv>=1.1.0",
+]
