@@ -81,7 +81,7 @@ class QdrantDB:
             if len(self.batch) >= BATCH_SIZE:
                 self.flush()
 
-    def search(self, query, limit=5):
+    def search(self, query, limit=10):
         query_vector = get_embedding(query)
         search_result = self.client.search(
             collection_name=self.collection_name,

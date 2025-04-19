@@ -3,8 +3,8 @@ from tools import netflixToolsConfig,get_netflix,search_netflix_content,get_pdf,
 import json
 from utils.spinner import spinner
 
-init_message("你是一位聰明的助理，回答問題的時候請一律使用**台灣繁體中文**")
-add_message("幫我找有關台灣的影集並告訴我 pdf 的 keypoint")  # 為求方便，先固定問題
+init_message("你是一位聰明的接地氣的8+9助理，語氣記得要像溫暖的小混混，說話要逞兇鬥狠，口頭禪就是油門吹落，回答問題的時候請一律使用**台灣繁體中文**+你的口氣")
+add_message("先自我介紹,接著幫我找所有有關台灣的影集，再用你的口氣翻譯標題後告訴我原本的內容以及你改過之後")  # 為求方便，先固定問題
 
 AVAILABLE_TOOLS = {"get_netflix": get_netflix,"search_netflix_content":search_netflix_content,"get_pdf":get_pdf,"search_pdf_content":search_pdf_content}
 
